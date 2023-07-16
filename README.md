@@ -1,6 +1,13 @@
 # mek.war
 Old school robot wars in a turn-based hex-map game, based very loosely on Battletech and similar tabletop games.  Core features include the ability to build your own units of various types, configurable / savable game maps, and terrain and map features that affect movement speed, chance to hit, and line of sight.
 
+## Installation
+
+mek.war is a standalone HTML / JS application.  In order to be able to load initial game data (maps, pre-configured teams, etc) it does require being run in either a local web server (localhost) or on an external web server, however, there are no real requirements of the server being that it be able to serve HTML as the entire application after loading data is run client-side in the browser.  Once you have a location to host the files, update the following line at the top of app.js to indicate the URL that points to the folder containing index.html:
+
+static webroot = 'http://localhost/mekwar/gitroot';
+
+
 ## Game Setup
 
 Each individual game has an assigned number of players (teams) and a max number of tonnage (weight) per team.  You must then select the desired map to use, and have the option of either using pre-configured teams (all teams are assigned matching units, ie all players get the same setup), or players can be allowed to build their own teams (by not checking the "Use Pre-Configured Teams" checkbox).  Number of teams for a game cannot exceed the number of placement / deployment areas that have been created for the selected map (currently not enforced by application logic, but a max teams property of a map is desirable, and perhaps can just be extraced from the related placement map).
