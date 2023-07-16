@@ -1,5 +1,5 @@
 # mek.war
-Old school robot wars in a turn-based hex-map game, based very loosely on Battletech and similar tabletop games.
+Old school robot wars in a turn-based hex-map game, based very loosely on Battletech and similar tabletop games.  Core features include the ability to build your own units of various types, configurable / savable game maps, and terrain and map features that affect movement speed, chance to hit, and line of sight.
 
 ## Game Setup
 
