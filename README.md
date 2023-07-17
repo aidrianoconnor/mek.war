@@ -93,6 +93,8 @@ JQuery has also been utilized, once again because it is just fast and easy for m
 
 Commented-out console.logs litter the code.  For now this is intentional as development is still underway and I like being able to quickly debug by just uncommenting log commands.  Temporary and sometimes out-of-date blocks are wholly commented out.  I make no bones about this not being a production-ready product - you've been warned :-)
 
+Initial game icons (units, etc) have been taken from https://game-icons.net.  Thanks to that team for making them freely available.
+
 
 ## List of Future / Missing Game Features
 - graphics for units, terrain, map features
@@ -101,3 +103,6 @@ Commented-out console.logs litter the code.  For now this is intentional as deve
 - game playable with teams on separate devices, ie game server, database, sharable state, playback of previous team's actions during their turn
 - destructable map features?
 - AI-controlled enemy teams
+
+## Known Bugs:
+- you can currently click on a target unit that is outside of weapon range

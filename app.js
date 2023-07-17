@@ -3,6 +3,7 @@ class App  {
 
     static webroot = 'http://localhost/mekwar/gitroot'; // http path to application root, used for loading data files 
     static INF = 999; // "infinity" for move calcs, ammo... ie, no possible move here, or weapon has infinite ammo
+    static showHotspotLabels = false; // debugging setting, for showing coords & movecost for each hex (via hotspot UI)
 
     constructor() {
         //this.classes = {};
@@ -106,7 +107,7 @@ class App  {
                     for(let r in unit.weapons) {
                         weapons.push(Weapons.factory[unit.weapons[r]]());
                     }
-                    unit = new Unit(i, Units.chassisFactory[unit.chassis](), Units.reactorFactory[unit.reactor](), unit.armor, weapons);
+                    unit = Units.unitFactory[unit.class](i, unit.armor, weapons);
                     this.game.teams[i].addUnit(unit);
                 }
             };

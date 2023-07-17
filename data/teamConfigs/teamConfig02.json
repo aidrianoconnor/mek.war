@@ -1,1 +1,1 @@
-[{"chassis":"TankChassis","reactor":"MediumReactor","armor":7,"weapons":["MediumLaser"]},{"chassis":"TankChassis","reactor":"MediumReactor","armor":13,"weapons":["MiniGun","AutoCannon"]}]
+[{"class":"MediumVehicle","armor":10,"weapons":["SmallLaser","SmallLaser"]},{"class":"HeavyTank","armor":48,"weapons":["MediumLaser","AutoCannon"]}]

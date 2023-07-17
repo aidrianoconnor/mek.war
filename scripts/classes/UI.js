@@ -367,8 +367,7 @@ class UI {
             e.preventDefault();
             const unit = app.game.getCurrentTeamObj().getUnitByID($(this).attr('href'));
             let data = {
-                chassis         : unit.chassis.constructor.name,
-                reactor         : unit.reactor.constructor.name,
+                class           : unit.constructor.name,
                 armor           : unit.armor,
                 weapons         : []
             }
@@ -383,8 +382,7 @@ class UI {
             const data = [];
             for(let u in team.units) {
                 let unitdata = {
-                    chassis         : team.units[u].chassis.constructor.name,
-                    reactor         : team.units[u].reactor.constructor.name,
+                    class           : team.units[u].constructor.name,
                     armor           : team.units[u].armor,
                     weapons         : []
                 }
@@ -414,7 +412,7 @@ class UI {
             
             out = '<tr>' +
                 '<td class="center"><input type="radio" id="' + t + '-' + unit.id + '" name="reactor" value="' + t + '"';
-            if(t == unit.reactor.constructor.name) out += ' checked';
+            if(t+'Reactor' == unit.reactor.constructor.name) out += ' checked';
             out += '/></td>' +
                 '<td><label for="' + t + '-' + unit.id + '">' + type.name + '</label></td>' +
                 '<td class="center">' + type.power + '</td>' +
@@ -435,7 +433,7 @@ class UI {
             type = Units.chassisFactory[t]();
             out = '<tr>' +
                 '<td class="center"><input type="radio" id="' + t + '-' + unit.id + '" name="chassis" value="' + t + '"'
-                if(t == unit.chassis.constructor.name) out += ' checked';
+                if(t+'Chassis' == unit.chassis.constructor.name) out += ' checked';
                 out += '/></td>' +
                 '<td><label for="' + t + '-' + unit.id + '">' + type.name + '</label></td>' +
                 '<td class="center">' + type.weight + '</td>' +
@@ -473,12 +471,12 @@ class UI {
     wireUnitBuilder() {
 
         $('input[name=reactor]').on('click', function(){
-            app.game.getCurrentUnitObj().reactor = Units.reactorFactory[$(this).val()]();
+            app.UI.rebuildUnit();
             app.UI.update();
         });
 
         $('input[name=chassis]').on('click', function(){
-            app.game.getCurrentUnitObj().chassis = Units.chassisFactory[$(this).val()]();
+            app.UI.rebuildUnit();
             app.UI.update();
         });
 
@@ -505,6 +503,29 @@ class UI {
             app.UI.update();
         });
 
+    }
+
+    // helper to rebuild a unit when either its reactor or chassis has been changed (ie, unit subclass reassignment)
+    // keeps whatever armor and weapons were already added to previous unit subclass
+    rebuildUnit() {
+        const unitClass = $('input[name="reactor"]:checked').val() + $('input[name="chassis"]:checked').val();
+        const armor = parseInt($('input[name="armor"]').val());
+        app.game.teams[app.game.currentTeam].units[app.game.getCurrentUnit()] = Units.unitFactory[unitClass](app.game.currentTeam, armor, []);
+
+        let num, i;
+        const curUnit = app.game.getCurrentUnitObj();
+        curUnit.weapons = []; // clear current unit's weapon list
+        $('input[name=weapon]').each(function(){
+            num = parseInt($(this).val());
+            if(num > 0) {
+                for(i=0; i < num; i++) {
+                    curUnit.weapons.push(Weapons.factory[$(this).data('rel')]());
+                }
+            };
+        });
+        curUnit.startingHealthPoints = curUnit.calcStartingHealthPoints();
+        curUnit.healthPoints = curUnit.startingHealthPoints;
+        
     }
 
 

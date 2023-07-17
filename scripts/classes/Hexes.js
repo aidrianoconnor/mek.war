@@ -72,7 +72,7 @@ class Hex {
     }
 
     drawHotSpot() {
-        if(!app.maps.showHotspotLabels) {
+        if(!App.showHotspotLabels) {
             return $('<canvas width="' + (app.maps.mapUnitWidth * .5) + 'px" height="' +
                 (app.maps.mapUnitHeight * .6) + 'px" class="hotspot" data-rel="' + this.r + ',' + this.c + '"></canvas>');
         } else {
@@ -124,35 +124,8 @@ class UnitHex extends Hex {
         this.visible = true; // for Line of Sight... is this unithex visible to the current team's units
     }
 
-    // TEMP - currently just drawing a colored circle for all units.  will need to switch to display an assigned SVG or PNG for this unit
     draw() {
-        const canvas = $('<canvas width="' + (app.maps.mapUnitWidth) + 'px" height="' + (app.maps.mapUnitHeight + 7) + 'px" class="unit" id="unit-' + this.unit.id +'">');
-        const ctx = canvas[0].getContext('2d');
-        const x = app.maps.mapUnitWidth * .5; // center of canvas
-        const y = app.maps.mapUnitHeight * .5; // center of canvas
-        const r = app.maps.scaleUnit * .33; // radius of circle
-        ctx.beginPath();
-        ctx.arc(x, y, r, 2*Math.PI, false);
-        ctx.closePath();
-        ctx.fillStyle = Team.TEAMCOLORS[this.unit.team];
-        ctx.fill();
-        // add a while stroke if this is the currently selected unit
-        if(app.game.getCurrentUnitObj().id == this.unit.id) {
-            ctx.strokeStyle = 'rgba(255, 255, 255, 1)';
-            ctx.lineWidth = 3; //app.maps.scaleUnit * .05;
-            ctx.stroke();
-        }
-        // draw the health bar
-        const healthPerc = this.unit.healthPoints / this.unit.startingHealthPoints;
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0)';
-        ctx.fillRect(10, app.maps.mapUnitHeight + 7, app.maps.mapUnitWidth - 20, -7);
-        ctx.closePath();
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(0, 255, 0, 1)';
-        ctx.fillRect(10, app.maps.mapUnitHeight + 7, healthPerc * (app.maps.mapUnitWidth - 20), -7);
-        ctx.closePath();
+        const canvas = this.unit.draw();
         return canvas;
     }
 }

@@ -16,7 +16,7 @@ class Team {
 
     // adds a unit with default config
     addNewUnit() {
-        var unit = new Unit(app.game.currentTeam, Units.chassisFactory['VehicleChassis'](), Units.reactorFactory['LightReactor'](), 0, []);
+        const unit = Units.unitFactory['LightVehicle'](app.game.currentTeam, 0, []);
         this.addUnit(unit);
     }
 

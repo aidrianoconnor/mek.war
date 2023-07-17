@@ -332,7 +332,7 @@ class Paths {
                     }
 
                 } else { // temp else can remove after debug
-                    console.log('enemy unit is already visible, not tested for this friendly unit');
+                    //console.log('enemy unit is already visible, not tested for this friendly unit');
                 }
 
             } // end for eu

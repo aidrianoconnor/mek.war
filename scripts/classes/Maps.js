@@ -180,10 +180,6 @@ class Maps {
         
         this.paths = new Paths();
 
-        this.showHotspotLabels = true; // debugging setting, for showing coords & movecost for each hex (via hotspot UI)
-
-        
-
     }
 
     // adds a unit to the units mapList

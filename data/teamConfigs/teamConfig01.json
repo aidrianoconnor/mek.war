@@ -1,1 +1,1 @@
-[{"chassis":"VehicleChassis","reactor":"AssaultReactor","armor":10,"weapons":["LargeLaser"]}]
+[{"class":"LightVehicle","armor":10,"weapons":["LargeLaser"]}]

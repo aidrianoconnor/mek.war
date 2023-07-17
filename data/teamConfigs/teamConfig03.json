@@ -1,1 +1,1 @@
-[{"chassis":"VehicleChassis","reactor":"MediumReactor","armor":10,"weapons":["MiniGun","MiniGun","LargeLaser"]},{"chassis":"TankChassis","reactor":"MediumReactor","armor":10,"weapons":["AutoCannon"]},{"chassis":"MechChassis","reactor":"MediumReactor","armor":3,"weapons":["LongRangeMissles"]}]
+[{"class":"LightMech","armor":0,"weapons":[]},{"class":"MediumMech","armor":0,"weapons":[]},{"class":"HeavyMech","armor":0,"weapons":[]},{"class":"AssaultMech","armor":0,"weapons":[]}]
