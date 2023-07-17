@@ -126,11 +126,14 @@ class Unit {
             let rndCnt = weapon.rounds;
             const thisMapUnit = app.maps.units.getUnitByID(this.id).obj;            
             const distance = app.maps.paths.distance({r:thisMapUnit.r, c:thisMapUnit.c}, {r:targetMapUnit.r, c:targetMapUnit.c});
-            const toHit = weapon.toHit - (distance * weapon.toHitMod);
-            //console.log(weapon.toHit, distance, weapon.toHitMod, toHit);
+            const terrain = app.maps.terrainMap.getHexByCoords(targetMapUnit.r, targetMapUnit.c);
+            const feature = app.maps.featureMap.getItemByCoords(targetMapUnit.r, targetMapUnit.c);
+            const cover = terrain.cover + ((feature) ? feature.cover : 0); // cover provided by terrain and feature
+            const toHit = weapon.toHit - cover - (distance * weapon.toHitMod);
+            //console.log(weapon.toHit, distance, weapon.toHitMod, cover, toHit);
             while (rndCnt > 0 && !targetMapUnit.unit.destroyed) { // destroyed check bc previous round in this salvo might have destroyed the target
                 let hitRoll = Math.random();
-                //console.log(hitRoll, toHit);
+                //console.log('hitRoll, toHit', hitRoll, toHit);
                 if(hitRoll <= toHit){
                     // if toHit is 95 or higher this is a critical hit.  full weapon dmg is applied.  otherwise, random dmg
                     let dmg = (hitRoll < .95) ? Math.ceil(Math.random() * weapon.dmg) : weapon.dmg; 

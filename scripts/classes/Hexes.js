@@ -167,6 +167,7 @@ class Terrain extends Hex {
         this.desc = 'Unspecified Terrain';
         this.moveCost = [1, 1, 1];
         this.blocksLOS = 0; // by default hexes do not block line of sight.  specific types will override this.
+        this.cover = 0; // by default hexes do not provide cover.  specific types will override this.
     }
 }
 
@@ -187,6 +188,7 @@ class Terrain extends Hex {
             this.desc = 'Light Forest';
             this.moveCost = [1.5, 1.25, 1];
             this.blocksLOS = .25;
+            this.cover = .1;
         }
         draw() {
             return this.drawFC('olive');
@@ -200,6 +202,7 @@ class Terrain extends Hex {
             this.desc = 'Thick Forest';
             this.moveCost = [App.INF, 2, 1.5];
             this.blocksLOS = .5;
+            this.cover = .2;
         }
         draw() {
             return this.drawFC('darkolivegreen');
@@ -222,6 +225,7 @@ class Terrain extends Hex {
             super(r, c, maps, Hexes.hexTypes.TERRAIN);
             this.desc = 'Deep Water';
             this.moveCost = [App.INF, App.INF, 2];
+            this.cover = .3;
         }
         draw() {
             return this.drawFC('#315b7e');
@@ -286,6 +290,7 @@ class Feature extends Hex {
             this.rotate = rotate; // degrees of rotation, applied via css
             this.moveCost = [App.INF, App.INF, App.INF];
             this.blocksLOS = 1; // by default hexes do not block line of sight.  specific types will override this. this is a number as percent ie .5 = 50% blocked
+            this.cover = 0; // by default features do not provide cover.  specific types will override this.
         }
 
         draw() {

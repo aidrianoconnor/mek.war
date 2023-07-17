@@ -43,7 +43,7 @@ Weapons have many factors, but to summarize:
 - Fire Cost: number of Attack Points required to fire this weapon.  Note that some weapons have very low Fire Cost, allowing them to be fired more than once in a given turn, and some are very expensive, requiring the player to convert Move Points to Attack Points to be fired at all (more on this below).
 - Weight: tons of weight that the weapon system adds to the unit, thus affecting speed.
 
-As can be noted above, there are many factors affecting overall weapon ability to hit.  To summarize, each indvidual round has an overall chance to hit, which is then modified by the distance to target.  Once a successful hit occurs, final damage is calculated against the max damage per round.  At time of writing, Cover has not yet been implemented, but Cover from the Terrain, Feature, or both, that the target is standing on will also degrade ability to hit per-round.
+As can be noted above, there are many factors affecting overall weapon ability to hit.  To summarize, each indvidual round has an overall chance to hit, which is then modified by the distance to target.  Once a successful hit occurs, final damage is calculated against the max damage per round.  Cover from the Terrain, Feature, or both, that the target is standing on will also degrade ability to hit per-round.
 
 All weapon types have been run through a balancing process to try to make all roughly equal in their effectiveness.  Balancing factored in weight, rounds, to hit, to hit modifier, damage per round, etc.
 
@@ -63,11 +63,11 @@ Note that 50% of total (not remaining) Move Points can be converted into one Att
 
 ## Terrain
 
-Terrain refers to the base terrain of a given hex.  Examples include Grass, Light Forest, Deep Water and Pavement.  As noted above in Units, terrain affects the movement rate of different unit types (Vehicle / Tank / Mech) individually, and can have the effect of slowing them down, speeding them up, or blocking movement completely.  Terrain can also affect Line of Sight, detailed below, as well as (not yet implemented) add Cover to make units standing on the terrain harder to hit (ex: Deep Forest).
+Terrain refers to the base terrain of a given hex.  Examples include Grass, Light Forest, Deep Water and Pavement.  As noted above in Units, terrain affects the movement rate of different unit types (Vehicle / Tank / Mech) individually, and can have the effect of slowing them down, speeding them up, or blocking movement completely.  Terrain can also affect Line of Sight, detailed below, as well as add Cover to make units standing on the terrain harder to hit (ex: Deep Forest).  Note that cover is only granted for the specific hex the unit is located on and is not additive for all hexes between the attacker and attackee.
 
 ## Features
 
-Features represent the idea of anything permanent that sits on top of the Terrain.  Examples would include Walls, Buildings, etc.  At time of writing, only Walls have been implemented.  As with Terrain, Features can affect Movement, Line of Sight, detailed below, as well as (not yet implemented) add Cover to make units standing on the terrain harder to hit.
+Features represent the idea of anything permanent that sits on top of the Terrain.  Examples would include Walls, Buildings, etc.  At time of writing, only Walls have been implemented.  As with Terrain, Features can affect Movement, Line of Sight, detailed below, as well as add Cover to make units standing on the terrain harder to hit.  Again, cover is only granted for the specific hex the unit is located on and is not additive for all hexes between the attacker and attackee.
 
 ## Line of Sight
 
@@ -97,7 +97,6 @@ Commented-out console.logs litter the code.  For now this is intentional as deve
 ## List of Future / Missing Game Features
 - graphics for units, terrain, map features
 - sound effects for weapon attacks, including miss
-- cover granted to units standing on hexes with given terrain / features
 - line of sight required to attack, ie, if an enemy is visible to a friendly unit certain weapons could allow attack even if that unit does not have direct LOS to the enemy (ex: missles)
 - game playable with teams on separate devices, ie game server, database, sharable state, playback of previous team's actions during their turn
 - destructable map features?

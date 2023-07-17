@@ -138,11 +138,14 @@ class UI {
         const moveCost = app.maps.getHexMoveCost(coords.r, coords.c, 'ALL');
         const terrain = app.maps.terrainMap.getHexByCoords(coords.r, coords.c);
         out += '<br/>' + terrain.desc + ' - ' + moveCost.toString() +
-            '<br/>' + (100 - (terrain.blocksLOS * 100)) + ' LOS';
+            '<br/>' + (100 - (terrain.blocksLOS * 100)) + '% LOS' +
+            '<br/>' + (terrain.cover * 100) + '% cover';
 
         // get feature details
         const feature = app.maps.featureMap.getItemByCoords(coords.r, coords.c);
-        if(feature) out += '<br/>' + feature.obj.desc + ' - ' + (100 - (feature.obj.blocksLOS * 100)) + '% LOS';
+        if(feature) out += '<br/>' + feature.obj.desc + ' - ' + 
+            (100 - (feature.obj.blocksLOS * 100)) + '% LOS'+ 
+            (feature.obj.cover * 100) + '% cover';
 
         // get unit details
         const unit = app.maps.units.getItemByCoords(coords.r, coords.c);
