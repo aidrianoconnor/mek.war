@@ -203,13 +203,14 @@ class UI {
             '<div class="pane">' +
             '<input type="radio" name="terrainMapFile" id="terrainMapFile01" value="map01" checked> <label for="terrainMapFile01">Map 01</label><br />' +
             '<input type="radio" name="terrainMapFile" id="terrainMapFile02" value="map02"> <label for="terrainMapFile02">Map 02</label><br />' +
+            '<input type="radio" name="terrainMapFile" id="terrainMapFile03" value="map03"> <label for="terrainMapFile03">Map 03</label><br />' +
             '</div>';
         
         pane.append(out);
 
-        out = '<h3><input type="checkbox" id="useTeamConfig" /> Use Pre-Configured Teams</h3>' +
+        out = '<h3><input type="checkbox" id="useTeamConfig" checked /> Use Pre-Configured Teams</h3>' +
             '<div class="pane">' +
-            '<input type="radio" name="teamConfigFile" id="teamConfigFile01" value="teamConfig01"> <label for="teamConfigFile01">Team Config 01</label><br />' +
+            '<input type="radio" name="teamConfigFile" id="teamConfigFile01" value="teamConfig01" checked> <label for="teamConfigFile01">Team Config 01</label><br />' +
             '<input type="radio" name="teamConfigFile" id="teamConfigFile02" value="teamConfig02"> <label for="teamConfigFile02">Team Config 02</label><br />' +
             '<input type="radio" name="teamConfigFile" id="teamConfigFile03" value="teamConfig03"> <label for="teamConfigFile03">Team Config 03</label><br />' +
             '</div>';
@@ -599,7 +600,6 @@ class UI {
 
         // if unit name clicked make it the current unit
         $('.otherUnitsPanel .unit h3').on('click', function() {
-            console.log('unit name clicked');
             app.game.setCurrentUnit(app.game.getCurrentTeamObj().getUnitIndexByID($(this).data('rel')));
             app.startMoveActionPhase();
         });
@@ -698,7 +698,7 @@ class UI {
                                 //app.UI.update();
                             }
                             if(app.game.actionPhase == Game.actionPhases.MOVE) {
-                                var highlight = app.maps.highlights.getItemByCoords(r, c);
+                                const highlight = app.maps.highlights.getItemByCoords(r, c);
                                 if(highlight) { // check to see if we have a Highlight in the clicked hotspot location
                                     
                                     mapunit = app.maps.getCurrentMapUnit();
@@ -724,11 +724,13 @@ class UI {
 
                                 }
                             } else if(app.game.actionPhase == Game.actionPhases.ATTACK) {
-                                let targetMapUnit = app.maps.units.getItemByCoords(r, c);
+                                const highlight = app.maps.highlights.getItemByCoords(r, c);
+                                const targetMapUnit = app.maps.units.getItemByCoords(r, c);
+
                                 // if enemy unit, attack them with the current weapon
-                                if(targetMapUnit && targetMapUnit.obj.unit.team != app.game.currentTeam) {
+                                if(highlight && targetMapUnit && targetMapUnit.obj.unit.team != app.game.currentTeam) {
                                     let dmgAR = app.game.getCurrentUnitObj().attack(targetMapUnit.obj);
-                                    console.log('targetMapUnit.obj', targetMapUnit.obj);
+                                    //console.log('targetMapUnit.obj', targetMapUnit.obj);
                                     app.UI.animateAttackDamage(dmgAR, targetMapUnit.obj.cx, targetMapUnit.obj.cy);
                                     const wait = setInterval(function() {
                                         if( !$('.dmg').length ) { // when no .dmg elements exist the animations are complete
@@ -960,6 +962,7 @@ class UI {
                     '<label for="' + i +'">' + Hexes.factory[i](0,0).desc + '</label><br />';
             }
         }
+        out += '<p>Use numpad + / - keys to rotate</p>';
         out += '<p><a href="#" id="saveFeatureMap">Output Feature Map</a></p>' + 
             '</div>';
 

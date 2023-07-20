@@ -92,7 +92,7 @@ class AutoCannon extends Weapon {
     constructor() {
         super (
             'AutoCannon', // name
-            0,   // range
+            5,   // range
             1,   // minrange
             Weapons.cats.BALLISTIC, // cat
             20,   // dmg
@@ -155,6 +155,7 @@ class LongRangeMissles extends Weapon {
             20, // weight
             100, // ammo
             .5, // toHit
+            0, // toHitMod
             4   // fireCost
         );
     }

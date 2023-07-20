@@ -97,6 +97,7 @@ Initial game icons (units, etc) have been taken from https://game-icons.net.  Th
 
 
 ## List of Future / Missing Game Features
+- max weight per chassis type?  or maybe just max armor... max armor = weight of reactor (light: 10, medium: 20, etc)
 - graphics for units, terrain, map features
 - sound effects for weapon attacks, including miss
 - line of sight required to attack, ie, if an enemy is visible to a friendly unit certain weapons could allow attack even if that unit does not have direct LOS to the enemy (ex: missles)
@@ -104,5 +105,7 @@ Initial game icons (units, etc) have been taken from https://game-icons.net.  Th
 - destructable map features?
 - AI-controlled enemy teams
 
-## Known Bugs:
-- you can currently click on a target unit that is outside of weapon range
+#Known Bugs:
+- When the first unit on Team A is destroyed, the highlight map from the previous unit on Team B is not removed when Team B finishes their turn
+- Attack LOS may not be getting honored, ie, if any friendly unit can see the enemy, you can attack it even if LOS between you is blocked
+- do not show FIRE button next to weapon if ammo is gone

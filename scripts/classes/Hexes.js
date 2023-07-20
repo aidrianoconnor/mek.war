@@ -150,7 +150,12 @@ class Terrain extends Hex {
             this.desc = 'Grass';
         }
         draw() {
-            return this.drawFC('olivedrab');
+            const canvas = this.drawFC('olivedrab');
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.Grass);
+            ctx.fillStyle = '#2f541d';
+            ctx.fill(path);
+            return canvas;
         }
     }
 
@@ -164,7 +169,14 @@ class Terrain extends Hex {
             this.cover = .1;
         }
         draw() {
-            return this.drawFC('olive');
+            const canvas = this.drawFC('#5b801e'); // 'olive'
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.LightForest);
+            ctx.scale(.1, .1);
+            ctx.fillStyle = '#004622'; // darkolivegreen';
+            ctx.fill(path);
+            ctx.stroke(path);
+            return canvas;
         }
     }
 
@@ -178,7 +190,14 @@ class Terrain extends Hex {
             this.cover = .2;
         }
         draw() {
-            return this.drawFC('darkolivegreen');
+            const canvas = this.drawFC('#466e17'); // 'olive'
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.ThickForest);
+            ctx.scale(.1, .1);
+            ctx.fillStyle = '#004622'; // darkolivegreen';
+            ctx.fill(path);
+            ctx.stroke(path);
+            return canvas;
         }
     }
 
@@ -189,7 +208,12 @@ class Terrain extends Hex {
             this.moveCost = [App.INF, App.INF, 1];
         }
         draw() {
-            return this.drawFC('steelblue');
+            const canvas = this.drawFC('steelblue');
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.Water);
+            ctx.strokeStyle = 'skyblue'; //#23415a'; 
+            ctx.stroke(path);
+            return canvas;
         }
     }
 
@@ -201,7 +225,12 @@ class Terrain extends Hex {
             this.cover = .3;
         }
         draw() {
-            return this.drawFC('#315b7e');
+            const canvas = this.drawFC('#315b7e');
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.Water);
+            ctx.strokeStyle = 'skyblue'; //#23415a'; 
+            ctx.stroke(path);
+            return canvas;
         }
     }
 
@@ -223,7 +252,16 @@ class Terrain extends Hex {
             this.moveCost = [1.5, 1.25, 1];
         }
         draw() {
-            return this.drawFC('burlywood');
+            const canvas = this.drawFC('#666100');
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.RoughGround);
+            ctx.scale(.1, .1);
+            ctx.translate(0, -50);
+            ctx.fillStyle = 'lightgray';
+            ctx.fill(path);
+            ctx.stroke(path);
+
+            return canvas;
         }
     }
 
@@ -231,10 +269,18 @@ class Terrain extends Hex {
         constructor(r, c, maps) { 
             super(r, c, maps, Hexes.hexTypes.TERRAIN);
             this.desc = 'Very Rough Ground';
-            this.moveCost = [.75, .8, 1];
+            this.moveCost = [App.INF, 1.5, 1.25];
         }
         draw() {
-            return this.drawFC('sienna');
+            const canvas = this.drawFC('#665200');
+            const ctx = canvas[0].getContext('2d');
+            const path = new Path2D(SVGs.terrain.VeryRoughGround);
+            ctx.scale(.1, .1);
+            ctx.translate(0, -50);
+            ctx.fillStyle = 'lightgray';
+            ctx.fill(path);
+            ctx.stroke(path);
+            return canvas;
         }
     }
 
@@ -256,7 +302,6 @@ class Feature extends Hex {
 }
 
     class Wall extends Feature {
-
         constructor(r, c, maps, rotate=0) { 
             super(r, c, maps, Hexes.hexTypes.FEATURE, rotate);
             this.desc = 'Wall';
@@ -265,21 +310,67 @@ class Feature extends Hex {
             this.blocksLOS = 1; // by default hexes do not block line of sight.  specific types will override this. this is a number as percent ie .5 = 50% blocked
             this.cover = 0; // by default features do not provide cover.  specific types will override this.
         }
-
         draw() {
             const canvas = $('<canvas width="' + app.maps.mapUnitWidth + 'px" height="' + app.maps.mapUnitHeight + 'px" class="feature">');
             const ctx = canvas[0].getContext('2d');
             const x = (app.maps.mapUnitWidth * .5) - 5;
             ctx.fillStyle = '#49535e';
             ctx.fillRect(x, 0, 10, app.maps.mapUnitHeight);
-            
-            //ctx.fill();
             return canvas;
         }
-
     }
 
+    class WallCorner60 extends Feature {
+        constructor(r, c, maps, rotate=0) { 
+            super(r, c, maps, Hexes.hexTypes.FEATURE, rotate);
+            this.desc = 'Wall Corner - 60deg';
+            this.rotate = rotate; // degrees of rotation, applied via css
+            this.moveCost = [App.INF, App.INF, App.INF];
+            this.blocksLOS = 1; 
+            this.cover = 0; 
+        }
+        draw() {
+            const canvas = $('<canvas width="' + app.maps.mapUnitWidth + 'px" height="' + app.maps.mapUnitHeight + 'px" class="feature">');
+            const ctx = canvas[0].getContext('2d');
+            ctx.fillStyle = '#49535e';
+            ctx.beginPath();
+            ctx.moveTo(3.8,28);
+            ctx.lineTo(30,12.8);
+            ctx.lineTo(30,43.2);
+            ctx.lineTo(20,43.2);
+            ctx.lineTo(20,30.2);
+            ctx.lineTo(8.8,36.7);
+            ctx.closePath();
+            ctx.fill();
+            return canvas;
+        }
+    }
 
+    class WallCorner120 extends Feature {
+        constructor(r, c, maps, rotate=0) { 
+            super(r, c, maps, Hexes.hexTypes.FEATURE, rotate);
+            this.desc = 'Wall Corner - 120deg';
+            this.rotate = rotate; // degrees of rotation, applied via css
+            this.moveCost = [App.INF, App.INF, App.INF];
+            this.blocksLOS = 1; 
+            this.cover = 0; 
+        }
+        draw() {
+            const canvas = $('<canvas width="' + app.maps.mapUnitWidth + 'px" height="' + app.maps.mapUnitHeight + 'px" class="feature">');
+            const ctx = canvas[0].getContext('2d');
+            ctx.fillStyle = '#49535e';
+            ctx.beginPath();
+            ctx.moveTo(20, 43.2);
+            ctx.lineTo(20, 18.6);
+            ctx.lineTo(41.2, 6.3);
+            ctx.lineTo(46.2, 15);
+            ctx.lineTo(30, 24.4);
+            ctx.lineTo(30, 43.2);
+            ctx.closePath();
+            ctx.fill();
+            return canvas;
+        }
+    }
 
 
 class Hexes {
@@ -313,6 +404,8 @@ class Hexes {
         'VeryRoughGround'   : function(r, c) { return new VeryRoughGround(r, c, app.maps) },
 
         'Wall'             : function(r, c, rotate) { return new Wall(r, c, app.maps, rotate) },
+        'WallCorner60'     : function(r, c, rotate) { return new WallCorner60(r, c, app.maps, rotate) },
+        'WallCorner120'     : function(r, c, rotate) { return new WallCorner120(r, c, app.maps, rotate) },
 
     };
 
